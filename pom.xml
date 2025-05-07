@@ -4,7 +4,7 @@
 
     <groupId>org.jboss.qa.noe</groupId>
     <artifactId>noe-core-parent</artifactId>
-    <version>0.17.19-SNAPSHOT</version>
+    <version>0.17.19</version>
     <packaging>pom</packaging>
 
     <name>Noe core: Parent</name>
@@ -48,14 +48,13 @@
         <connection>scm:git:git@${env.GIT_URL}:${env.GIT_USER}/noe-core.git</connection>
         <developerConnection>scm:git:git@${env.GIT_URL}:${env.GIT_USER}/noe-core.git</developerConnection>
         <url>https://${env.GIT_URL}/${env.GIT_USER}/noe-core</url>
-        <tag>v0.17.16</tag>
+        <tag>v0.17.19</tag>
     </scm>
 
     <distributionManagement>
         <repository>
-            <id>jboss-public-repository</id>
-            <name>Public JBoss release repository</name>
-            <url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2</url>
+            <id>jboss-qa-staging-repository</id>
+            <url>https://origin-repository-nx3.stage.jboss.org/nexus3/repository/releases/</url>
         </repository>
     </distributionManagement>
 
