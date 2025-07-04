@@ -59,8 +59,8 @@ class Platform {
     }
 
     if (isWindows()) {
-      int start = osVersion.indexOf("Server") + "Server ".length()
-      return Integer.parseInt(osVersion.substring(start)) < value
+      int start = osName.indexOf("Server") + "Server ".length()
+      return Integer.parseInt(osName.substring(start)) < value
     }
     return false
   }
