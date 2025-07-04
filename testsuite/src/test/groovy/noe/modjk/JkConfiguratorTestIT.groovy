@@ -2,9 +2,11 @@ package noe.modjk
 
 import groovy.util.logging.Slf4j
 import noe.common.TestAbstract
+import noe.common.DefaultProperties
 import noe.common.utils.JBFile
 import noe.common.utils.Platform
 import noe.common.utils.VerifyURLBuilder
+import noe.common.utils.Version
 import noe.eap.workspace.WorkspaceMultipleHttpdAS7
 import noe.ews.workspace.WorkspaceHttpdTomcats
 import noe.jk.configure.DefaultAS7WorkerConfigurator
@@ -30,6 +32,7 @@ import noe.server.jk.WorkerServer
 import noe.workspace.IWorkspace
 import noe.workspace.ServersWorkspace
 import org.junit.After
+import org.junit.Assume
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,6 +41,7 @@ import org.junit.runners.Parameterized
 import static groovy.test.GroovyAssert.shouldFail
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue
+import static org.junit.Assume.assumeFalse
 import static org.junit.Assume.assumeTrue
 
 @Slf4j
@@ -61,7 +65,7 @@ class JkConfiguratorTestIT extends TestAbstract {
   static Collection<Object[]> data() {
     Platform platform = new Platform()
     boolean modJkPlatforms =
-            (platform.OSVersionLessThan(10) && (platform.isX64())) ||
+            (platform.isRHEL() && platform.OSVersionLessThan(10) && (platform.isX64())) ||
             (platform.isSolaris11() && platform.isX64()) ||
             (platform.isWindows() && platform.isX64())
 
@@ -79,6 +83,11 @@ class JkConfiguratorTestIT extends TestAbstract {
 
   @Before
   void before() {
+
+    Version ewsVersion = DefaultProperties.ewsVersion().toString()
+    assumeFalse("mod_jk is not officially supported on JWS 6.0",
+            ewsVersion >= new Version('6.0.0'))
+
     String key = np.getFacingServerClass().toString() + np.getWorkerServerClass().toString()
 
     // Create workspace (for example: httpd/mod_jk + Tomcat) once and execute all test over it
