@@ -27,7 +27,7 @@ public class Java {
       String serverJavac = PathHelper.join(serverJavaHome, "bin", "javac")
       String serverJava = PathHelper.join(serverJavaHome, "bin", "java")
       Library.copyResourceTo(javaHelperClassResource, new File("."))
-      Cmd.executeCommandConsumeStreams([serverJava, "JavaVersion.java"])
+      Cmd.executeCommandConsumeStreams([serverJavac, "JavaVersion.java"])
       def serverJavaVersion = Cmd.executeCommandConsumeStreams([serverJava, "JavaVersion", "-version"])["stdOut"].trim()
       def serverJavaVendor = Cmd.executeCommandConsumeStreams([serverJava, "JavaVersion", "-vendor"])["stdOut"].trim()
       def serverJavaVmName = Cmd.executeCommandConsumeStreams([serverJava, "JavaVersion", "-vmname"])["stdOut"].trim()
