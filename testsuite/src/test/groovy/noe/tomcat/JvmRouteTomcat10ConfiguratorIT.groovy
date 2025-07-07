@@ -11,8 +11,7 @@ class JvmRouteTomcat10ConfiguratorIT extends JvmRouteTomcatConfiguratorIT {
     @BeforeClass
     public static void beforeClass() {
         Platform platform = new Platform()
-        def java11Indicators = ['jdk11', 'java-11', 'openjdk-11']
-        def serverJavaHomeMatches = java11Indicators.any { DefaultProperties.SERVER_JAVA_HOME?.contains(it) }
+        def serverJavaHomeMatches = Java.JAVA_11_INDICATORS.any { DefaultProperties.SERVER_JAVA_HOME?.contains(it) }
 
         Assume.assumeFalse("JWS is not supported on HP-UX => skipping", platform.isHP())
         if (platform.isRHEL()) {
