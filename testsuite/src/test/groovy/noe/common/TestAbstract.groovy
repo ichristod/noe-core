@@ -24,32 +24,16 @@ class TestAbstract {
   public static void loadTestProperties(String testProperties = null) {
     if (testProperties) {
       originalProperties = new ByteArrayOutputStream()
-      InputStream propertiesStream = null
-
+      System.getProperties().store(originalProperties, "backup")
+      String configFile = getClass().getResource(testProperties).getPath();
       try {
-        System.getProperties().store(originalProperties, "backup")
-        propertiesStream = TestAbstract.class.getResourceAsStream(testProperties)
-
-        if (!propertiesStream) {
-          log.error("Expected properties file ${testProperties} doesn't exist.")
-          throw new FileNotFoundException("Expected properties file '${testProperties}' doesn't exist.")
-        }
-
-        System.getProperties().load(propertiesStream)
-        serverController = ServerController.getInstance() // we need to reset serverController as context might change
-
+        System.getProperties().load(new FileInputStream(new File(configFile)));
+        serverController = ServerController.getInstance() // we need to reset serverController as context might change, thus needing different serverController
       } catch (Exception e) {
-        log.error("Could not load properties file ${testProperties}: ${e.message}")
-      } finally {
-        if (propertiesStream) {
-          try {
-            propertiesStream.close()
-          } catch (IOException ignored) {}
-        }
+        log.error("Could not load properties file ${configFile}: " + e.getMessage());
       }
     }
   }
-
 
   @Before
   public void prepare() {
