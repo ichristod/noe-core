@@ -66,8 +66,8 @@ class JkConfiguratorTestIT extends TestAbstract {
             (platform.isWindows() && platform.isX64())
 
     [
-      [Httpd.class, AS7.class, modJkPlatforms],
-      [Httpd.class, Tomcat.class, modJkPlatforms]
+            [Httpd.class, Tomcat.class, modJkPlatforms],
+            [Httpd.class, AS7.class, modJkPlatforms]
     ].collect { it as Object[] }
 
   }
