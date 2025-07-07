@@ -3,9 +3,6 @@ package noe.common.utils
 import groovy.util.logging.Slf4j
 import noe.common.DefaultProperties
 
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
 /**
  *
  * @author Jiri Sedlacek <jsedlace@redhat.com>

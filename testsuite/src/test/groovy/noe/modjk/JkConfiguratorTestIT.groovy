@@ -2,7 +2,6 @@ package noe.modjk
 
 import groovy.util.logging.Slf4j
 import noe.common.TestAbstract
-import noe.common.DefaultProperties
 import noe.common.utils.JBFile
 import noe.common.utils.Platform
 import noe.common.utils.VerifyURLBuilder
@@ -39,7 +38,6 @@ import org.junit.runners.Parameterized
 import static groovy.test.GroovyAssert.shouldFail
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue
-import static org.junit.Assume.assumeFalse
 import static org.junit.Assume.assumeTrue
 
 @Slf4j
@@ -81,7 +79,6 @@ class JkConfiguratorTestIT extends TestAbstract {
 
   @Before
   void before() {
-
     String key = np.getFacingServerClass().toString() + np.getWorkerServerClass().toString()
 
     // Create workspace (for example: httpd/mod_jk + Tomcat) once and execute all test over it
@@ -541,7 +538,7 @@ class JkConfiguratorTestIT extends TestAbstract {
       if (workerServerClass == Tomcat.class) {
         Platform platform = new Platform()
         if (platform.isRHEL7()) return "ews-rhel7-test.properties"
-        else return "ews-jws5-test.properties"
+        else return "ews-test.properties"
       }
       else return "eap6-test.properties"
     }
