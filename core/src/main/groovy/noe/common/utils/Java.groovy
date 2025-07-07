@@ -184,10 +184,8 @@ public class Java {
     }
 
     try {
-
-      // matches both “…/java-1.X.X-openjdk” and “…/java-XX-openjdk”
-      def m = (serverJavaHome =~ /java-(\d+)(?:\.(\d+))?/)
-
+      // "java-1.8.0-openjdk", "java-11-openjdk", "oraclejdk-11.0.27", etc.
+      def m = (serverJavaHome =~ /.*(?:jdk|java)[-]?(\d+)(?:\.(\d+))?.*/)
       if (!m) {
         log.warn("Can not determine SERVER_JAVA_HOME: ${serverJavaHome}")
         return false
@@ -206,7 +204,7 @@ public class Java {
 
       return major < maxMajor
     } catch (NumberFormatException e) {
-      log.error(printStackTrace())
+      log.error("Error parsing serverJdk version: ${e.message}", e)
       return false
     }
   }
