@@ -61,6 +61,7 @@ class JkConfiguratorTestIT extends TestAbstract {
   static Collection<Object[]> data() {
     Platform platform = new Platform()
     boolean modJkPlatforms =
+            // mod_jk is not shipped in rhel10
             (platform.OSVersionLessThan(10) && (platform.isX64())) ||
             (platform.isSolaris11() && platform.isX64()) ||
             (platform.isWindows() && platform.isX64())
